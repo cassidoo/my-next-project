@@ -18,7 +18,10 @@ function Pokemon({ pokemon }) {
 
 export async function getStaticPaths() {
   const paths = pokemon.all().map((p) => {
-    return `/pokemon/${p.toLowerCase().replace(/[ ']/g, '').replace('.', '-')}`
+    return `/pokemon/${p
+      .toLowerCase()
+      .replace(/[ '♀♂]/g, '')
+      .replace('.', '-')}`
   })
 
   return {
