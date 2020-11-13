@@ -24,6 +24,8 @@ export async function getStaticPaths() {
       .replace('.', '-')}`
   })
 
+  paths = paths.filter((p) => p !== 'nidoran').concat(['nidoran-f', 'nidoran-m'])
+
   return {
     paths,
     fallback: false,
