@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import pokemon from 'pokemon'
 
 function Pokemon({ pokemon }) {
   return (
@@ -17,14 +16,12 @@ function Pokemon({ pokemon }) {
 }
 
 export async function getStaticPaths() {
-  let paths = pokemon.all().map((p) => {
-    return `/pokemon/${p
-      .toLowerCase()
-      .replace(/[ '♀♂]/g, '')
-      .replace('.', '-')}`
-  })
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=151`)
+  const pokemon = await res.json()
 
-  paths = paths.filter((p) => p !== 'nidoran').concat(['/pokemon/nidoran-f', '/pokemon/nidoran-m'])
+  let paths = pokemon.results.map((p) => {
+    return `/pokemon/${p.name}`
+  })
 
   return {
     paths,
